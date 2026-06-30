@@ -211,15 +211,7 @@ install_deps() {
         yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
         percona-release enable ${PPG_REPO_NAME} testing
 
-        if [ x"$RHEL" = x8 ];
-        then
-		    clang_version=$(yum list --showduplicates clang-devel | grep "20.1" | grep clang | awk '{print $2}' | head -n 1)
-            llvm_version=$(yum list --showduplicates llvm-devel | grep "20.1" | grep llvm | awk '{print $2}' | head -n 1)
-            yum install -y clang-devel-${clang_version} clang-${clang_version} llvm-devel-${llvm_version}
-            dnf module disable -y rust-toolset llvm-toolset
-        else
-            yum install -y clang-devel clang llvm-devel
-        fi
+        yum install -y clang-devel clang llvm-devel
 
         PKGLIST="percona-postgresql${PG_RELEASE}-devel"
         PKGLIST+=" git rpmdevtools vim wget"
