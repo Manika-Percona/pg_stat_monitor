@@ -224,7 +224,7 @@ install_deps() {
         PKGLIST="percona-postgresql${PG_RELEASE}-devel"
         PKGLIST+=" git rpmdevtools vim wget"
         PKGLIST+=" perl binutils gcc gcc-c++"
-        PKGLIST+=" git rpm-build rpmdevtools wget gcc make autoconf openssl-devel"
+        PKGLIST+=" git rpm-build rpmdevtools wget gcc make autoconf openssl-devel krb5-devel"
         if [[ "${RHEL}" -ge 8 ]]; then
             dnf config-manager --set-enabled ol${RHEL}_codeready_builder
             dnf -y module disable postgresql || true
