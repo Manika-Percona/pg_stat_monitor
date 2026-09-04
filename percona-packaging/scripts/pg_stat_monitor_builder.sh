@@ -224,7 +224,7 @@ install_deps() {
         PKGLIST="percona-postgresql${PG_RELEASE}-devel"
         PKGLIST+=" git rpmdevtools vim wget"
         PKGLIST+=" perl binutils gcc gcc-c++"
-        PKGLIST+=" git rpm-build rpmdevtools wget gcc make autoconf"
+        PKGLIST+=" git rpm-build rpmdevtools wget gcc make autoconf openssl-devel"
         if [[ "${RHEL}" -ge 8 ]]; then
             dnf config-manager --set-enabled ol${RHEL}_codeready_builder
             dnf -y module disable postgresql || true
@@ -261,17 +261,17 @@ install_deps() {
         PKGLIST="percona-postgresql-${PG_RELEASE} percona-postgresql-common percona-postgresql-server-dev-all"
         apt-get update
 
-		if [[ "x${DEBIAN}" == "xbullseye" ]]; then
+		#if [[ "x${DEBIAN}" == "xbullseye" ]]; then
     		DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
     		wget https://apt.llvm.org/llvm.sh
     		chmod +x llvm.sh
-    		./llvm.sh 14 bullseye
-		else
-			wget http://mirrors.edge.kernel.org/ubuntu/pool/universe/l/llvm-toolchain-7/llvm-7_7.0.1-12_amd64.deb http://mirrors.edge.kernel.org/ubuntu/pool/universe/l/llvm-toolchain-7/libllvm7_7.0.1-12_amd64.deb http://mirrors.edge.kernel.org/ubuntu/pool/universe/l/llvm-toolchain-7/llvm-7-runtime_7.0.1-12_amd64.deb
-        	apt install ./libllvm7_7.0.1-12_amd64.deb ./llvm-7_7.0.1-12_amd64.deb ./llvm-7-runtime_7.0.1-12_amd64.deb
-		fi
+    		./llvm.sh 14 ${DEBIAN}
+		#else
+		#	wget http://mirrors.edge.kernel.org/ubuntu/pool/universe/l/llvm-toolchain-7/llvm-7_7.0.1-12_amd64.deb http://mirrors.edge.kernel.org/ubuntu/pool/universe/l/llvm-toolchain-7/libllvm7_7.0.1-12_amd64.deb http://mirrors.edge.kernel.org/ubuntu/pool/universe/l/llvm-toolchain-7/llvm-7-runtime_7.0.1-12_amd64.deb
+        #	apt install ./libllvm7_7.0.1-12_amd64.deb ./llvm-7_7.0.1-12_amd64.deb ./llvm-7-runtime_7.0.1-12_amd64.deb
+		#fi
 
-        PKGLIST+=" debconf debhelper clang devscripts dh-exec git wget libkrb5-dev libssl-dev"
+        PKGLIST+=" debconf debhelper clang-14 devscripts dh-exec git wget libkrb5-dev libssl-dev"
         PKGLIST+=" build-essential debconf debhelper devscripts dh-exec git wget libxml-checker-perl"
         PKGLIST+=" libxml-libxml-perl libio-socket-ssl-perl libperl-dev libssl-dev libxml2-dev txt2man zlib1g-dev libpq-dev"
 
